@@ -3,7 +3,7 @@
 
 import { Appointment } from "./appwrite.types";
 
-declare type SearchParamProps = {
+export declare type SearchParamProps = {
     params: { [key: string]: string };
     searchParams: { [key: string]: string | string[] | undefined };
   };
@@ -16,7 +16,7 @@ declare type SearchParamProps = {
     email: string;
     phone: string;
   }
-  declare interface User extends CreateUserParams {
+  export declare interface User extends CreateUserParams {
     $id: string;
   }
   
