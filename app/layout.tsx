@@ -18,6 +18,9 @@ const fontSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Health Care",
   description: "Heath care management app",
+  icons:{
+    icon:"/assets/icons/logo-icon.svg",
+  }
 };
 
 export default function RootLayout({
@@ -35,9 +38,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+          defaultTheme="dark"
         >
           {children}
         </ThemeProvider>
