@@ -15,9 +15,10 @@ import { createUser } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
 import { User } from "@/types/index.d";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { GenderOptions } from "@/constants";
-
+import { Doctors, GenderOptions } from "@/constants";
+import  Image  from 'next/image';
 import { Label } from "../ui/label";
+import { SelectItem } from "@radix-ui/react-select";
 
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
@@ -37,6 +38,7 @@ const RegisterForm = ({ user }: { user: User }) => {
     email,
     phone,
   }: z.infer<typeof UserFormValidation>) => {
+    setIsLoading(true);
     try {
       const userData = {
         name,
@@ -50,8 +52,10 @@ const RegisterForm = ({ user }: { user: User }) => {
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
@@ -118,11 +122,10 @@ const RegisterForm = ({ user }: { user: User }) => {
                   className="flex 
                     h-11 gap-6 xl:justify-between"
                   onValueChange={field.onChange}
-                  defaultValue={field.value}>
-                    
+                  defaultValue={field.value}
+                >
                   {GenderOptions.map((option) => (
-                    <div key={option} 
-                    className="radio-group">
+                    <div key={option} className="radio-group">
                       <RadioGroupItem value={option} id={option} />
                       <Label htmlFor={option} className="cursor-pointer">
                         {option}
@@ -134,6 +137,80 @@ const RegisterForm = ({ user }: { user: User }) => {
             )}
           />
         </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="address"
+            label="Address"
+            placeholder="14th Street, NY"
+          />
+
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="occupation"
+            label="Occupation"
+            placeholder="occupation"
+          />
+        </div>
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="emergencyContactName"
+            label="Emergency Contact Name"
+            placeholder="Emergency Contact Name"
+             
+          />
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.PHONE_INPUT}
+            name="emergencyContactumber"
+            label="Emergency Contact Number"
+            placeholder="(555) 54236456"
+
+          />
+        </div>
+
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Medical Information </h2>
+          </div>
+        </section>
+         
+
+        <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.SELECT}
+            name="primaryPhyisician"
+            label="Primary Pyisician"
+            placeholder="Select a phyisician"
+             
+          >
+
+
+            {
+               Doctors.map((doctor)=>(
+
+                <SelectItem key={doctor.name} value={doctor.name}>
+
+                   <div key={doctor.name} className="flex cursor-pointer items-center ga-2">
+                      <Image
+                        src={doctor.image}
+                        alt={doctor.name}
+                        width={36}
+                        height={36}
+                        className="rounded-full border border-dark-500"
+                      />
+                      <p>{doctor.name}</p>
+                     </div>
+                </SelectItem>
+                    
+               ))
+            }
+          </CustomFormField>
 
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>

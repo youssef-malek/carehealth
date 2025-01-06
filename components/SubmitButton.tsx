@@ -8,27 +8,30 @@ interface SubmitProps {
   children?: React.ReactNode;
 }
 
-const SubmitButton = ({ isLoading, className,children }: SubmitProps) => {
+const SubmitButton = ({isLoading,className,children }: SubmitProps) => {
+  
   return (
     <Button
       type="submit"
       disabled={isLoading}
       className={className ?? "shad-primary-btn w-full"}
     >
-      {isLoading ? (
-        <div className="flex items-center justify-center w-full">
+      {
+      isLoading ? (
+        <div className="flex items-center justify-center gap-4 w-full">
           <Image
             src="/assets/icons/loader.svg"
             alt="loader"
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             className="animate-spin"
           />
-          Laoding ...
+          Loading...
         </div>
       ) : (
         children
-      )}
+      )
+      }
     </Button>
   );
 };

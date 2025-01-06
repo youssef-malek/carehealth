@@ -5,8 +5,10 @@ import RegisterForm from "@/components/froms/RegisterForm";
 import { getUser } from "@/lib/actions/patient.actions";
 import { SearchParamProps } from "@/types/index.d";
 
-const Register = async ({ params : {userId}}: SearchParamProps) => {
+const Register = async ({params}: SearchParamProps) => {
 
+  
+  const { userId } = await params
   const user = await getUser(userId);
   return (
     
@@ -21,7 +23,11 @@ const Register = async ({ params : {userId}}: SearchParamProps) => {
             className="mb-12 h-10 w-fit"
             priority
           />
-           <RegisterForm user = {user} />
+          
+            <RegisterForm user = {user} /> 
+
+
+
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
               © 2024 CareHealth
