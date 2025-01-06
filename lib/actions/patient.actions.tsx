@@ -6,9 +6,8 @@ import { ID, Query } from "node-appwrite";
 import { parseStringify } from "../utils";
 
 export const createUser = async ({name, email, phone} : CreateUserParams)=>{
-    console.log("action ==> create");
     try {
-        console.log("action ==> try");
+
         const newUser = await users.create(
             ID.unique(),
             email,
@@ -16,7 +15,6 @@ export const createUser = async ({name, email, phone} : CreateUserParams)=>{
             undefined,
             name,
         )
-        console.log("action ==> end try");
         return parseStringify(newUser);
     } catch (error: any) {
         if(error && error?.code === 409){
